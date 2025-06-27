@@ -126,6 +126,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
+import com.ezylang.evalex.util.MapUtil;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -179,14 +180,15 @@ public class ExpressionConfiguration {
    *   <li>{@link DateTimeFormatter#ISO_LOCAL_DATE}
    * </ul>
    */
-  protected static final List<DateTimeFormatter> DEFAULT_DATE_TIME_FORMATTERS =
-      new ArrayList<>(
-          List.of(
-              DateTimeFormatter.ISO_DATE_TIME,
-              DateTimeFormatter.ISO_DATE,
-              DateTimeFormatter.ISO_LOCAL_DATE_TIME,
-              DateTimeFormatter.ISO_LOCAL_DATE,
-              DateTimeFormatter.RFC_1123_DATE_TIME));
+  protected static final List<DateTimeFormatter> DEFAULT_DATE_TIME_FORMATTERS = new ArrayList<>();
+
+  static {
+    DEFAULT_DATE_TIME_FORMATTERS.add(DateTimeFormatter.ISO_DATE_TIME);
+    DEFAULT_DATE_TIME_FORMATTERS.add(DateTimeFormatter.ISO_DATE);
+    DEFAULT_DATE_TIME_FORMATTERS.add(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    DEFAULT_DATE_TIME_FORMATTERS.add(DateTimeFormatter.ISO_LOCAL_DATE);
+    DEFAULT_DATE_TIME_FORMATTERS.add(DateTimeFormatter.RFC_1123_DATE_TIME);
+  }
 
   /** The operator dictionary holds all operators that will be allowed in an expression. */
   @Builder.Default
@@ -194,26 +196,26 @@ public class ExpressionConfiguration {
   private final OperatorDictionaryIfc operatorDictionary =
       MapBasedOperatorDictionary.ofOperators(
           // arithmetic
-          Map.entry("+", new PrefixPlusOperator()),
-          Map.entry("-", new PrefixMinusOperator()),
-          Map.entry("+", new InfixPlusOperator()),
-          Map.entry("-", new InfixMinusOperator()),
-          Map.entry("*", new InfixMultiplicationOperator()),
-          Map.entry("/", new InfixDivisionOperator()),
-          Map.entry("^", new InfixPowerOfOperator()),
-          Map.entry("%", new InfixModuloOperator()),
+              MapUtil.entry("+", new PrefixPlusOperator()),
+              MapUtil.entry("-", new PrefixMinusOperator()),
+          MapUtil.entry("+", new InfixPlusOperator()),
+          MapUtil.entry("-", new InfixMinusOperator()),
+          MapUtil.entry("*", new InfixMultiplicationOperator()),
+          MapUtil.entry("/", new InfixDivisionOperator()),
+          MapUtil.entry("^", new InfixPowerOfOperator()),
+          MapUtil.entry("%", new InfixModuloOperator()),
           // booleans
-          Map.entry("=", new InfixEqualsOperator()),
-          Map.entry("==", new InfixEqualsOperator()),
-          Map.entry("!=", new InfixNotEqualsOperator()),
-          Map.entry("<>", new InfixNotEqualsOperator()),
-          Map.entry(">", new InfixGreaterOperator()),
-          Map.entry(">=", new InfixGreaterEqualsOperator()),
-          Map.entry("<", new InfixLessOperator()),
-          Map.entry("<=", new InfixLessEqualsOperator()),
-          Map.entry("&&", new InfixAndOperator()),
-          Map.entry("||", new InfixOrOperator()),
-          Map.entry("!", new PrefixNotOperator()));
+          MapUtil.entry("=", new InfixEqualsOperator()),
+          MapUtil.entry("==", new InfixEqualsOperator()),
+          MapUtil.entry("!=", new InfixNotEqualsOperator()),
+          MapUtil.entry("<>", new InfixNotEqualsOperator()),
+          MapUtil.entry(">", new InfixGreaterOperator()),
+          MapUtil.entry(">=", new InfixGreaterEqualsOperator()),
+          MapUtil.entry("<", new InfixLessOperator()),
+          MapUtil.entry("<=", new InfixLessEqualsOperator()),
+          MapUtil.entry("&&", new InfixAndOperator()),
+          MapUtil.entry("||", new InfixOrOperator()),
+          MapUtil.entry("!", new PrefixNotOperator()));
 
   /** The function dictionary holds all functions that will be allowed in an expression. */
   @Builder.Default
@@ -221,83 +223,83 @@ public class ExpressionConfiguration {
   private final FunctionDictionaryIfc functionDictionary =
       MapBasedFunctionDictionary.ofFunctions(
           // basic functions
-          Map.entry("ABS", new AbsFunction()),
-          Map.entry("AVERAGE", new AverageFunction()),
-          Map.entry("CEILING", new CeilingFunction()),
-          Map.entry("COALESCE", new CoalesceFunction()),
-          Map.entry("FACT", new FactFunction()),
-          Map.entry("FLOOR", new FloorFunction()),
-          Map.entry("IF", new IfFunction()),
-          Map.entry("LOG", new LogFunction()),
-          Map.entry("LOG10", new Log10Function()),
-          Map.entry("MAX", new MaxFunction()),
-          Map.entry("MIN", new MinFunction()),
-          Map.entry("NOT", new NotFunction()),
-          Map.entry("RANDOM", new RandomFunction()),
-          Map.entry("ROUND", new RoundFunction()),
-          Map.entry("SQRT", new SqrtFunction()),
-          Map.entry("SUM", new SumFunction()),
-          Map.entry("SWITCH", new SwitchFunction()),
+          MapUtil.entry("ABS", new AbsFunction()),
+          MapUtil.entry("AVERAGE", new AverageFunction()),
+          MapUtil.entry("CEILING", new CeilingFunction()),
+          MapUtil.entry("COALESCE", new CoalesceFunction()),
+          MapUtil.entry("FACT", new FactFunction()),
+          MapUtil.entry("FLOOR", new FloorFunction()),
+          MapUtil.entry("IF", new IfFunction()),
+          MapUtil.entry("LOG", new LogFunction()),
+          MapUtil.entry("LOG10", new Log10Function()),
+          MapUtil.entry("MAX", new MaxFunction()),
+          MapUtil.entry("MIN", new MinFunction()),
+          MapUtil.entry("NOT", new NotFunction()),
+          MapUtil.entry("RANDOM", new RandomFunction()),
+          MapUtil.entry("ROUND", new RoundFunction()),
+          MapUtil.entry("SQRT", new SqrtFunction()),
+          MapUtil.entry("SUM", new SumFunction()),
+          MapUtil.entry("SWITCH", new SwitchFunction()),
           // trigonometric
-          Map.entry("ACOS", new AcosFunction()),
-          Map.entry("ACOSH", new AcosHFunction()),
-          Map.entry("ACOSR", new AcosRFunction()),
-          Map.entry("ACOT", new AcotFunction()),
-          Map.entry("ACOTH", new AcotHFunction()),
-          Map.entry("ACOTR", new AcotRFunction()),
-          Map.entry("ASIN", new AsinFunction()),
-          Map.entry("ASINH", new AsinHFunction()),
-          Map.entry("ASINR", new AsinRFunction()),
-          Map.entry("ATAN", new AtanFunction()),
-          Map.entry("ATAN2", new Atan2Function()),
-          Map.entry("ATAN2R", new Atan2RFunction()),
-          Map.entry("ATANH", new AtanHFunction()),
-          Map.entry("ATANR", new AtanRFunction()),
-          Map.entry("COS", new CosFunction()),
-          Map.entry("COSH", new CosHFunction()),
-          Map.entry("COSR", new CosRFunction()),
-          Map.entry("COT", new CotFunction()),
-          Map.entry("COTH", new CotHFunction()),
-          Map.entry("COTR", new CotRFunction()),
-          Map.entry("CSC", new CscFunction()),
-          Map.entry("CSCH", new CscHFunction()),
-          Map.entry("CSCR", new CscRFunction()),
-          Map.entry("DEG", new DegFunction()),
-          Map.entry("RAD", new RadFunction()),
-          Map.entry("SIN", new SinFunction()),
-          Map.entry("SINH", new SinHFunction()),
-          Map.entry("SINR", new SinRFunction()),
-          Map.entry("SEC", new SecFunction()),
-          Map.entry("SECH", new SecHFunction()),
-          Map.entry("SECR", new SecRFunction()),
-          Map.entry("TAN", new TanFunction()),
-          Map.entry("TANH", new TanHFunction()),
-          Map.entry("TANR", new TanRFunction()),
+          MapUtil.entry("ACOS", new AcosFunction()),
+          MapUtil.entry("ACOSH", new AcosHFunction()),
+          MapUtil.entry("ACOSR", new AcosRFunction()),
+          MapUtil.entry("ACOT", new AcotFunction()),
+          MapUtil.entry("ACOTH", new AcotHFunction()),
+          MapUtil.entry("ACOTR", new AcotRFunction()),
+          MapUtil.entry("ASIN", new AsinFunction()),
+          MapUtil.entry("ASINH", new AsinHFunction()),
+          MapUtil.entry("ASINR", new AsinRFunction()),
+          MapUtil.entry("ATAN", new AtanFunction()),
+          MapUtil.entry("ATAN2", new Atan2Function()),
+          MapUtil.entry("ATAN2R", new Atan2RFunction()),
+          MapUtil.entry("ATANH", new AtanHFunction()),
+          MapUtil.entry("ATANR", new AtanRFunction()),
+          MapUtil.entry("COS", new CosFunction()),
+          MapUtil.entry("COSH", new CosHFunction()),
+          MapUtil.entry("COSR", new CosRFunction()),
+          MapUtil.entry("COT", new CotFunction()),
+          MapUtil.entry("COTH", new CotHFunction()),
+          MapUtil.entry("COTR", new CotRFunction()),
+          MapUtil.entry("CSC", new CscFunction()),
+          MapUtil.entry("CSCH", new CscHFunction()),
+          MapUtil.entry("CSCR", new CscRFunction()),
+          MapUtil.entry("DEG", new DegFunction()),
+          MapUtil.entry("RAD", new RadFunction()),
+          MapUtil.entry("SIN", new SinFunction()),
+          MapUtil.entry("SINH", new SinHFunction()),
+          MapUtil.entry("SINR", new SinRFunction()),
+          MapUtil.entry("SEC", new SecFunction()),
+          MapUtil.entry("SECH", new SecHFunction()),
+          MapUtil.entry("SECR", new SecRFunction()),
+          MapUtil.entry("TAN", new TanFunction()),
+          MapUtil.entry("TANH", new TanHFunction()),
+          MapUtil.entry("TANR", new TanRFunction()),
           // string functions
-          Map.entry("STR_CONTAINS", new StringContains()),
-          Map.entry("STR_ENDS_WITH", new StringEndsWithFunction()),
-          Map.entry("STR_FORMAT", new StringFormatFunction()),
-          Map.entry("STR_LEFT", new StringLeftFunction()),
-          Map.entry("STR_LENGTH", new StringLengthFunction()),
-          Map.entry("STR_LOWER", new StringLowerFunction()),
-          Map.entry("STR_MATCHES", new StringMatchesFunction()),
-          Map.entry("STR_RIGHT", new StringRightFunction()),
-          Map.entry("STR_SPLIT", new StringSplitFunction()),
-          Map.entry("STR_STARTS_WITH", new StringStartsWithFunction()),
-          Map.entry("STR_SUBSTRING", new StringSubstringFunction()),
-          Map.entry("STR_TRIM", new StringTrimFunction()),
-          Map.entry("STR_UPPER", new StringUpperFunction()),
+          MapUtil.entry("STR_CONTAINS", new StringContains()),
+          MapUtil.entry("STR_ENDS_WITH", new StringEndsWithFunction()),
+          MapUtil.entry("STR_FORMAT", new StringFormatFunction()),
+          MapUtil.entry("STR_LEFT", new StringLeftFunction()),
+          MapUtil.entry("STR_LENGTH", new StringLengthFunction()),
+          MapUtil.entry("STR_LOWER", new StringLowerFunction()),
+          MapUtil.entry("STR_MATCHES", new StringMatchesFunction()),
+          MapUtil.entry("STR_RIGHT", new StringRightFunction()),
+          MapUtil.entry("STR_SPLIT", new StringSplitFunction()),
+          MapUtil.entry("STR_STARTS_WITH", new StringStartsWithFunction()),
+          MapUtil.entry("STR_SUBSTRING", new StringSubstringFunction()),
+          MapUtil.entry("STR_TRIM", new StringTrimFunction()),
+          MapUtil.entry("STR_UPPER", new StringUpperFunction()),
           // date time functions
-          Map.entry("DT_DATE_NEW", new DateTimeNewFunction()),
-          Map.entry("DT_DATE_PARSE", new DateTimeParseFunction()),
-          Map.entry("DT_DATE_FORMAT", new DateTimeFormatFunction()),
-          Map.entry("DT_DATE_TO_EPOCH", new DateTimeToEpochFunction()),
-          Map.entry("DT_DURATION_NEW", new DurationNewFunction()),
-          Map.entry("DT_DURATION_FROM_MILLIS", new DurationFromMillisFunction()),
-          Map.entry("DT_DURATION_TO_MILLIS", new DurationToMillisFunction()),
-          Map.entry("DT_DURATION_PARSE", new DurationParseFunction()),
-          Map.entry("DT_NOW", new DateTimeNowFunction()),
-          Map.entry("DT_TODAY", new DateTimeTodayFunction()));
+          MapUtil.entry("DT_DATE_NEW", new DateTimeNewFunction()),
+          MapUtil.entry("DT_DATE_PARSE", new DateTimeParseFunction()),
+          MapUtil.entry("DT_DATE_FORMAT", new DateTimeFormatFunction()),
+          MapUtil.entry("DT_DATE_TO_EPOCH", new DateTimeToEpochFunction()),
+          MapUtil.entry("DT_DURATION_NEW", new DurationNewFunction()),
+          MapUtil.entry("DT_DURATION_FROM_MILLIS", new DurationFromMillisFunction()),
+          MapUtil.entry("DT_DURATION_TO_MILLIS", new DurationToMillisFunction()),
+          MapUtil.entry("DT_DURATION_PARSE", new DurationParseFunction()),
+          MapUtil.entry("DT_NOW", new DateTimeNowFunction()),
+          MapUtil.entry("DT_TODAY", new DateTimeTodayFunction()));
 
   /** The math context to use. */
   @Builder.Default private final MathContext mathContext = DEFAULT_MATH_CONTEXT;

@@ -1,5 +1,11 @@
 EvalEx - Java Expression Evaluator
+
 ==========
+
+JDK8支持
+
+==========
+
 
 [![Build](https://github.com/ezylang/EvalEx/actions/workflows/build.yml/badge.svg)](https://github.com/ezylang/EvalEx/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ezylang_EvalEx&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ezylang_EvalEx)
@@ -54,11 +60,12 @@ systems like Maven or Gradle.
 To include it in your Maven project, add the dependency to your pom. For example:
 
 ```xml
+
 <dependencies>
     <dependency>
-      <groupId>com.ezylang</groupId>
-      <artifactId>EvalEx</artifactId>
-      <version>3.5.0</version>
+        <groupId>io.github.xb-mx</groupId>
+        <artifactId>EvalEx-jdk8</artifactId>
+        <version>3.6.0</version>
     </dependency>
 </dependencies>
 ```
@@ -69,7 +76,7 @@ If you're using gradle add the dependencies to your project's app build.gradle:
 
 ```gradle
 dependencies {
-    compile 'com.ezylang:EvalEx:3.5.0'
+    compile 'io.github.xb-mx:EvalEx-jdk8:3.6.0'
 }
 ```
 
