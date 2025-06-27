@@ -2,10 +2,6 @@ EvalEx - Java Expression Evaluator
 
 ==========
 
-JDK8支持
-
-==========
-
 
 [![Build](https://github.com/ezylang/EvalEx/actions/workflows/build.yml/badge.svg)](https://github.com/ezylang/EvalEx/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ezylang_EvalEx&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ezylang_EvalEx)
@@ -36,7 +32,7 @@ EvalEx is a handy expression evaluator for Java, that allows to parse and evalua
 - Supports implicit multiplication, e.g. 2x or (a+b)(a-b) or 2(x-y) which equals to (a+b)\*(a-b) or 2\*(
   x-y)
 - Lazy evaluation of function parameters (see the IF function) and support of sub-expressions.
-- Requires minimum Java version 11.
+- Requires minimum Java version 8.
 
 ## Documentation
 
